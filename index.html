@@ -262,6 +262,10 @@
         </section>
       </footer>
     </div>
+	  
+    <audio id="bgm" autoplay loop muted hidden>
+      <source src="music/music1.mp3" type="audio/mpeg" />
+    </audio>
 
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
@@ -271,5 +275,24 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+     <!--控制背景音乐的script-->
+    <script>
+      (function () {
+        const audio = document.getElementById("bgm");
+        function unmuteOnScroll() {
+          audio.muted = false;
+          audio.play().catch(() => {});
+          window.removeEventListener("scroll", unmuteOnScroll);
+          window.removeEventListener("click", unmuteOnScroll);
+          window.removeEventListener("touchstart", unmuteOnScroll);
+        }
+        window.addEventListener("scroll", unmuteOnScroll, {
+          passive: true,
+          once: true,
+        });
+        window.addEventListener("click", unmuteOnScroll, { once: true });
+        window.addEventListener("touchstart", unmuteOnScroll, { once: true });
+      })();
+    </script>
   </body>
 </html>
